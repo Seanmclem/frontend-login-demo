@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import { Link, useParams } from "react-router-dom";
+import { Link, useHistory, useParams } from "react-router-dom";
 import { useAuthStore, User } from "../stores/AuthStore";
 import { getUserById } from "../services/AuthService";
 
@@ -21,10 +21,12 @@ export const UserDetailPage: React.FC<props> = () => {
     debugger;
     setUserDetail(fetchedUser);
   };
+  const history = useHistory();
 
   useEffect(() => {
-    if (id) {
-      debugger;
+    if (!loggedInUser) {
+      history.push("/");
+    } else if (id) {
       getUserDetail();
     }
   }, []);

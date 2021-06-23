@@ -4,6 +4,7 @@ import { Link, useHistory } from "react-router-dom";
 import styled from "styled-components";
 import { createUser, getUsers } from "../services/AuthService";
 import { useAuthStore, User } from "../stores/AuthStore";
+import { SearchForm } from "./SearchForm";
 
 interface props {}
 
@@ -68,6 +69,9 @@ export const UserListPage: React.FC<props> = () => {
   return (
     <Container>
       <h4>Client Id: {loggedInUser?.clientid}</h4>
+      {loggedInUser && (
+        <SearchForm setUsers={setUsers} loggedInUser={loggedInUser} />
+      )}
       <ul>
         {users.map((user) => (
           <li>
