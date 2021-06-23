@@ -1,6 +1,9 @@
 import { User } from "../stores/AuthStore";
 
-const path = "http://localhost:3100";
+const path =
+  process.env.NODE_ENV === "production"
+    ? "https://radiant-escarpment-94685.herokuapp.com"
+    : "http://localhost:3100";
 
 export const handleLogin = async (email: string) => {
   const userData = await fetch(`${path}/login?email=${email}`);
