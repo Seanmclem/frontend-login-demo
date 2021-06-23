@@ -14,6 +14,9 @@ function App() {
           <Route path="/user" exact>
             <UserDetailPage />
           </Route>
+          <Route path="/user/:id" exact>
+            <UserDetailPage />
+          </Route>
           <Route path="/users" exact>
             <UserListPage />
           </Route>
