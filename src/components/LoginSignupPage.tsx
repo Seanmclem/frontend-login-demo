@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import { useForm } from "react-hook-form";
-import { handleLogin } from "../services/AuthService";
+import { createUser, handleLogin } from "../services/AuthService";
 import { User, useAuthStore } from "../stores/AuthStore";
 import { useHistory } from "react-router-dom";
 
@@ -43,7 +43,7 @@ const NavContainer = styled.div`
 
 export const LoginSignupPage: React.FC<props> = () => {
   const history = useHistory();
-  const [formType, setFormType] = useState<"login" | "signup">("signup");
+  const [formType, setFormType] = useState<"login" | "signup">("login");
   const setLoginUser = useAuthStore((state) => state.setLoginUser);
 
   const {
@@ -66,6 +66,12 @@ export const LoginSignupPage: React.FC<props> = () => {
     }
     if (formType === "signup") {
       console.log(formType, { ...data });
+      const newUserData = await createUser(data, data);
+
+      if (newUserData.newUser) {
+        setLoginUser(newUserData.newUser);
+        history.push("/users");
+      }
     }
   };
 

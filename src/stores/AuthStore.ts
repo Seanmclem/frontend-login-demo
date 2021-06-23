@@ -1,6 +1,7 @@
 import create, { SetState } from "zustand";
 
 export interface User {
+  objectId?: string;
   address: string;
   clientid: string;
   email: string;

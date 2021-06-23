@@ -58,7 +58,7 @@ export const getUserById = async (email: string, id: string) => {
 };
 
 export const createUser = async (newUserData: User, creator: User) => {
-  const usersData = await fetch(`users/create`, {
+  const usersData = await fetch(`${path}/users/create`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
