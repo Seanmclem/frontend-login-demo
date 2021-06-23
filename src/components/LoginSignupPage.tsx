@@ -1,6 +1,9 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import { useForm } from "react-hook-form";
+import { handleLogin } from "../services/AuthService";
+import { User, useAuthStore } from "../stores/AuthStore";
+import { useHistory } from "react-router-dom";
 
 interface props {}
 
@@ -39,7 +42,9 @@ const NavContainer = styled.div`
 `;
 
 export const LoginSignupPage: React.FC<props> = () => {
+  const history = useHistory();
   const [formType, setFormType] = useState<"login" | "signup">("signup");
+  const setLoginUser = useAuthStore((state) => state.setLoginUser);
 
   const {
     register,
@@ -48,9 +53,14 @@ export const LoginSignupPage: React.FC<props> = () => {
     formState: { errors },
   } = useForm();
 
-  const onSubmit = (data) => {
+  const onSubmit = async (data) => {
     if (formType === "login") {
       console.log(formType, { ...data });
+      const user: User = await handleLogin(data.email);
+      setLoginUser(user);
+      if (user) {
+        history.push("/user");
+      }
     }
     if (formType === "signup") {
       console.log(formType, { ...data });
