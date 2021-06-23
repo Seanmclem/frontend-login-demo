@@ -58,8 +58,10 @@ export const LoginSignupPage: React.FC<props> = () => {
       console.log(formType, { ...data });
       const user: User = await handleLogin(data.email);
       setLoginUser(user);
-      if (user) {
+      if (user?.role === "user") {
         history.push("/user");
+      } else if (user) {
+        history.push("/users");
       }
     }
     if (formType === "signup") {

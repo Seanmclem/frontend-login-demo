@@ -11,8 +11,12 @@ export const handleLogin = async (email: string) => {
 
 export const getUsers = async (email: string) => {
   const usersData = await fetch(`${path}/users`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
     body: JSON.stringify({
-      email,
+      email: email,
     }),
   });
   const usersDataJSON = await usersData.json();
@@ -23,6 +27,10 @@ export const getUsers = async (email: string) => {
 
 export const searchUsers = async (email: string, query: string) => {
   const usersData = await fetch(`${path}/users?search=${query || ""}`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
     body: JSON.stringify({
       email,
     }),
@@ -35,6 +43,10 @@ export const searchUsers = async (email: string, query: string) => {
 
 export const getUserById = async (email: string, id: string) => {
   const usersData = await fetch(`${path}/users?id=${id}`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
     body: JSON.stringify({
       email,
     }),
@@ -47,6 +59,10 @@ export const getUserById = async (email: string, id: string) => {
 
 export const createUser = async (newUserData: User, creator: User) => {
   const usersData = await fetch(`users/create`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
     body: JSON.stringify({
       newUser: newUserData,
       creator,
